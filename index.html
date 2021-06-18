@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Biodiversitynetwork_0.js"></script>
+        <script src="data/IndigenousVegetationCurrent_1.js"></script>
+        <script src="data/Suburbs_2.js"></script>
+        <script src="data/Watercourse_3.js"></script>
+        <script src="data/Wetlands_4.js"></script>
+        <script src="data/IndigenousVegetationHistoric_5.js"></script>
+        <script src="data/ScenicRoutes_6.js"></script>
+        <script src="data/UrbanDevelopmentZones_7.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        function pop_Biodiversitynetwork_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DATE_GRND_'] !== null ? Autolinker.link(String(feature.properties['DATE_GRND_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AREA_HCTR'] !== null ? Autolinker.link(String(feature.properties['AREA_HCTR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PRMT_MTR'] !== null ? Autolinker.link(String(feature.properties['PRMT_MTR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CBA_Catego'] !== null ? Autolinker.link(String(feature.properties['CBA_Catego'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CBA_Name_'] !== null ? Autolinker.link(String(feature.properties['CBA_Name_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Subtype'] !== null ? Autolinker.link(String(feature.properties['Subtype'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SDF'] !== null ? Autolinker.link(String(feature.properties['SDF'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Descriptio'] !== null ? Autolinker.link(String(feature.properties['Descriptio'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Significan'] !== null ? Autolinker.link(String(feature.properties['Significan'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Objective'] !== null ? Autolinker.link(String(feature.properties['Objective'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ACTION'] !== null ? Autolinker.link(String(feature.properties['ACTION'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Compat_Act'] !== null ? Autolinker.link(String(feature.properties['Compat_Act'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Grndtruth'] !== null ? Autolinker.link(String(feature.properties['Grndtruth'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CESA_Signi'] !== null ? Autolinker.link(String(feature.properties['CESA_Signi'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PA_Name'] !== null ? Autolinker.link(String(feature.properties['PA_Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Proclaimed'] !== null ? Autolinker.link(String(feature.properties['Proclaimed'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Managed'] !== null ? Autolinker.link(String(feature.properties['Managed'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Primary_Cl'] !== null ? Autolinker.link(String(feature.properties['Primary_Cl'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Secondary_'] !== null ? Autolinker.link(String(feature.properties['Secondary_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Tertiary_'] !== null ? Autolinker.link(String(feature.properties['Tertiary_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Legislatio'] !== null ? Autolinker.link(String(feature.properties['Legislatio'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CORR_NAME'] !== null ? Autolinker.link(String(feature.properties['CORR_NAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? Autolinker.link(String(feature.properties['Shape_Leng'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Area'] !== null ? Autolinker.link(String(feature.properties['Shape_Area'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Biodiversitynetwork_0_0() {
+            return {
+                pane: 'pane_Biodiversitynetwork_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(242,229,245,1.0)',
+            }
+        }
+        map.createPane('pane_Biodiversitynetwork_0');
+        map.getPane('pane_Biodiversitynetwork_0').style.zIndex = 400;
+        map.getPane('pane_Biodiversitynetwork_0').style['mix-blend-mode'] = 'normal';
+        var layer_Biodiversitynetwork_0 = new L.geoJson(json_Biodiversitynetwork_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Biodiversitynetwork_0',
+            onEachFeature: pop_Biodiversitynetwork_0,
+            style: style_Biodiversitynetwork_0_0,
+        });
+        bounds_group.addLayer(layer_Biodiversitynetwork_0);
+        map.addLayer(layer_Biodiversitynetwork_0);
+        function pop_IndigenousVegetationCurrent_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? Autolinker.link(String(feature.properties['OBJECTID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NTNL_VGTN_'] !== null ? Autolinker.link(String(feature.properties['NTNL_VGTN_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['VGTN_SBTY'] !== null ? Autolinker.link(String(feature.properties['VGTN_SBTY'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CMNT'] !== null ? Autolinker.link(String(feature.properties['CMNT'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AREA_HCTR'] !== null ? Autolinker.link(String(feature.properties['AREA_HCTR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PRMT_MTR'] !== null ? Autolinker.link(String(feature.properties['PRMT_MTR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DATE_ADD'] !== null ? Autolinker.link(String(feature.properties['DATE_ADD'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DATE_CHNG'] !== null ? Autolinker.link(String(feature.properties['DATE_CHNG'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ShapeSTAre'] !== null ? Autolinker.link(String(feature.properties['ShapeSTAre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ShapeSTLen'] !== null ? Autolinker.link(String(feature.properties['ShapeSTLen'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? Autolinker.link(String(feature.properties['Shape_Leng'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Area'] !== null ? Autolinker.link(String(feature.properties['Shape_Area'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_IndigenousVegetationCurrent_1_0() {
+            return {
+                pane: 'pane_IndigenousVegetationCurrent_1',
+                opacity: 1,
+                color: 'rgba(98,206,16,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+            }
+        }
+        function style_IndigenousVegetationCurrent_1_1() {
+            return {
+                pane: 'pane_IndigenousVegetationCurrent_1',
+                opacity: 1,
+                color: 'rgba(51,160,44,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,255,0.0)',
+            }
+        }
+        map.createPane('pane_IndigenousVegetationCurrent_1');
+        map.getPane('pane_IndigenousVegetationCurrent_1').style.zIndex = 401;
+        map.getPane('pane_IndigenousVegetationCurrent_1').style['mix-blend-mode'] = 'normal';
+        var layer_IndigenousVegetationCurrent_1 = new L.geoJson.multiStyle(json_IndigenousVegetationCurrent_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_IndigenousVegetationCurrent_1',
+            onEachFeature: pop_IndigenousVegetationCurrent_1,
+            styles: [style_IndigenousVegetationCurrent_1_0,style_IndigenousVegetationCurrent_1_1,]
+        });
+        bounds_group.addLayer(layer_IndigenousVegetationCurrent_1);
+        map.addLayer(layer_IndigenousVegetationCurrent_1);
+        function pop_Suburbs_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? Autolinker.link(String(feature.properties['OBJECTID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OFC_SBRB_N'] !== null ? Autolinker.link(String(feature.properties['OFC_SBRB_N'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SHAPE_STAr'] !== null ? Autolinker.link(String(feature.properties['SHAPE_STAr'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SHAPE_STLe'] !== null ? Autolinker.link(String(feature.properties['SHAPE_STLe'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SHAPESTAre'] !== null ? Autolinker.link(String(feature.properties['SHAPESTAre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SHAPESTLen'] !== null ? Autolinker.link(String(feature.properties['SHAPESTLen'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? Autolinker.link(String(feature.properties['Shape_Leng'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Area'] !== null ? Autolinker.link(String(feature.properties['Shape_Area'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Suburbs_2_0() {
+            return {
+                pane: 'pane_Suburbs_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(134,55,78,0.0)',
+            }
+        }
+        map.createPane('pane_Suburbs_2');
+        map.getPane('pane_Suburbs_2').style.zIndex = 402;
+        map.getPane('pane_Suburbs_2').style['mix-blend-mode'] = 'normal';
+        var layer_Suburbs_2 = new L.geoJson(json_Suburbs_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Suburbs_2',
+            onEachFeature: pop_Suburbs_2,
+            style: style_Suburbs_2_0,
+        });
+        bounds_group.addLayer(layer_Suburbs_2);
+        map.addLayer(layer_Suburbs_2);
+        function pop_Watercourse_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? Autolinker.link(String(feature.properties['OBJECTID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LU_TYPE_CD'] !== null ? Autolinker.link(String(feature.properties['LU_TYPE_CD'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CTMT'] !== null ? Autolinker.link(String(feature.properties['CTMT'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['RVR_NAME'] !== null ? Autolinker.link(String(feature.properties['RVR_NAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STRM_ORDR'] !== null ? Autolinker.link(String(feature.properties['STRM_ORDR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OWC_DSCR'] !== null ? Autolinker.link(String(feature.properties['OWC_DSCR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DSTR'] !== null ? Autolinker.link(String(feature.properties['DSTR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SAP_DESCR'] !== null ? Autolinker.link(String(feature.properties['SAP_DESCR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OWNRSHP'] !== null ? Autolinker.link(String(feature.properties['OWNRSHP'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MNT_AUTH'] !== null ? Autolinker.link(String(feature.properties['MNT_AUTH'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ShapeSTLen'] !== null ? Autolinker.link(String(feature.properties['ShapeSTLen'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? Autolinker.link(String(feature.properties['Shape_Leng'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Watercourse_3_0() {
+            return {
+                pane: 'pane_Watercourse_3',
+                opacity: 1,
+                color: 'rgba(41,76,255,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_Watercourse_3');
+        map.getPane('pane_Watercourse_3').style.zIndex = 403;
+        map.getPane('pane_Watercourse_3').style['mix-blend-mode'] = 'normal';
+        var layer_Watercourse_3 = new L.geoJson(json_Watercourse_3, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Watercourse_3',
+            onEachFeature: pop_Watercourse_3,
+            style: style_Watercourse_3_0,
+        });
+        bounds_group.addLayer(layer_Watercourse_3);
+        map.addLayer(layer_Watercourse_3);
+        function pop_Wetlands_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['WTLN_ID_'] !== null ? Autolinker.link(String(feature.properties['WTLN_ID_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['WTLN_NAME_'] !== null ? Autolinker.link(String(feature.properties['WTLN_NAME_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ANTH_TYPE'] !== null ? Autolinker.link(String(feature.properties['ANTH_TYPE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CBA_CTGR'] !== null ? Autolinker.link(String(feature.properties['CBA_CTGR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LVL_1'] !== null ? Autolinker.link(String(feature.properties['LVL_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LVL_2'] !== null ? Autolinker.link(String(feature.properties['LVL_2'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LVL_3'] !== null ? Autolinker.link(String(feature.properties['LVL_3'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LVL_4A'] !== null ? Autolinker.link(String(feature.properties['LVL_4A'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LVL_4B'] !== null ? Autolinker.link(String(feature.properties['LVL_4B'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LVL_4C'] !== null ? Autolinker.link(String(feature.properties['LVL_4C'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LVL_5A'] !== null ? Autolinker.link(String(feature.properties['LVL_5A'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LVL_5B'] !== null ? Autolinker.link(String(feature.properties['LVL_5B'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LVL_5C'] !== null ? Autolinker.link(String(feature.properties['LVL_5C'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LVL_6A'] !== null ? Autolinker.link(String(feature.properties['LVL_6A'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LVL_6B'] !== null ? Autolinker.link(String(feature.properties['LVL_6B'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LVL_6C'] !== null ? Autolinker.link(String(feature.properties['LVL_6C'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LVL_6E'] !== null ? Autolinker.link(String(feature.properties['LVL_6E'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['VG_INDG_CM'] !== null ? Autolinker.link(String(feature.properties['VG_INDG_CM'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['VG_ALN_CMN'] !== null ? Autolinker.link(String(feature.properties['VG_ALN_CMN'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SBST'] !== null ? Autolinker.link(String(feature.properties['SBST'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SLNT'] !== null ? Autolinker.link(String(feature.properties['SLNT'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PH'] !== null ? Autolinker.link(String(feature.properties['PH'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PES'] !== null ? Autolinker.link(String(feature.properties['PES'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['EIS'] !== null ? Autolinker.link(String(feature.properties['EIS'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['IMPC'] !== null ? Autolinker.link(String(feature.properties['IMPC'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['IMPC_CMNT_'] !== null ? Autolinker.link(String(feature.properties['IMPC_CMNT_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CMNT_'] !== null ? Autolinker.link(String(feature.properties['CMNT_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['EXPR_RVWR_'] !== null ? Autolinker.link(String(feature.properties['EXPR_RVWR_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TO_GR_TRTH'] !== null ? Autolinker.link(String(feature.properties['TO_GR_TRTH'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GR_TRTH_BY'] !== null ? Autolinker.link(String(feature.properties['GR_TRTH_BY'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DATE_GRTRT'] !== null ? Autolinker.link(String(feature.properties['DATE_GRTRT'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MAP_CNFD'] !== null ? Autolinker.link(String(feature.properties['MAP_CNFD'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AREA_HCTR'] !== null ? Autolinker.link(String(feature.properties['AREA_HCTR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PRMT_MTR'] !== null ? Autolinker.link(String(feature.properties['PRMT_MTR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? Autolinker.link(String(feature.properties['Shape_Leng'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Area'] !== null ? Autolinker.link(String(feature.properties['Shape_Area'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Wetlands_4_0() {
+            return {
+                pane: 'pane_Wetlands_4',
+                opacity: 1,
+                color: 'rgba(114,133,132,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(165,191,221,1.0)',
+            }
+        }
+        map.createPane('pane_Wetlands_4');
+        map.getPane('pane_Wetlands_4').style.zIndex = 404;
+        map.getPane('pane_Wetlands_4').style['mix-blend-mode'] = 'normal';
+        var layer_Wetlands_4 = new L.geoJson(json_Wetlands_4, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Wetlands_4',
+            onEachFeature: pop_Wetlands_4,
+            style: style_Wetlands_4_0,
+        });
+        bounds_group.addLayer(layer_Wetlands_4);
+        map.addLayer(layer_Wetlands_4);
+        function pop_IndigenousVegetationHistoric_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? Autolinker.link(String(feature.properties['OBJECTID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NTNL_VGTN_'] !== null ? Autolinker.link(String(feature.properties['NTNL_VGTN_'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['VGTN_SBTY'] !== null ? Autolinker.link(String(feature.properties['VGTN_SBTY'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CMNT'] !== null ? Autolinker.link(String(feature.properties['CMNT'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AREA_HCTR'] !== null ? Autolinker.link(String(feature.properties['AREA_HCTR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PRMT_MTR'] !== null ? Autolinker.link(String(feature.properties['PRMT_MTR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ShapeSTAre'] !== null ? Autolinker.link(String(feature.properties['ShapeSTAre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ShapeSTLen'] !== null ? Autolinker.link(String(feature.properties['ShapeSTLen'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? Autolinker.link(String(feature.properties['Shape_Leng'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Area'] !== null ? Autolinker.link(String(feature.properties['Shape_Area'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_IndigenousVegetationHistoric_5_0() {
+            return {
+                pane: 'pane_IndigenousVegetationHistoric_5',
+                opacity: 1,
+                color: 'rgba(187,157,106,0.9)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(226,236,80,0.0)',
+            }
+        }
+        map.createPane('pane_IndigenousVegetationHistoric_5');
+        map.getPane('pane_IndigenousVegetationHistoric_5').style.zIndex = 405;
+        map.getPane('pane_IndigenousVegetationHistoric_5').style['mix-blend-mode'] = 'normal';
+        var layer_IndigenousVegetationHistoric_5 = new L.geoJson(json_IndigenousVegetationHistoric_5, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_IndigenousVegetationHistoric_5',
+            onEachFeature: pop_IndigenousVegetationHistoric_5,
+            style: style_IndigenousVegetationHistoric_5_0,
+        });
+        bounds_group.addLayer(layer_IndigenousVegetationHistoric_5);
+        map.addLayer(layer_IndigenousVegetationHistoric_5);
+        function pop_ScenicRoutes_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? Autolinker.link(String(feature.properties['OBJECTID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SGMN_NAME'] !== null ? Autolinker.link(String(feature.properties['SGMN_NAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CTGR'] !== null ? Autolinker.link(String(feature.properties['CTGR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NMBR'] !== null ? Autolinker.link(String(feature.properties['NMBR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STDY_NAME'] !== null ? Autolinker.link(String(feature.properties['STDY_NAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SHAPESTLen'] !== null ? Autolinker.link(String(feature.properties['SHAPESTLen'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? Autolinker.link(String(feature.properties['Shape_Leng'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ScenicRoutes_6_0() {
+            return {
+                pane: 'pane_ScenicRoutes_6',
+                opacity: 1,
+                color: 'rgba(145,48,242,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_ScenicRoutes_6');
+        map.getPane('pane_ScenicRoutes_6').style.zIndex = 406;
+        map.getPane('pane_ScenicRoutes_6').style['mix-blend-mode'] = 'normal';
+        var layer_ScenicRoutes_6 = new L.geoJson(json_ScenicRoutes_6, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_ScenicRoutes_6',
+            onEachFeature: pop_ScenicRoutes_6,
+            style: style_ScenicRoutes_6_0,
+        });
+        bounds_group.addLayer(layer_ScenicRoutes_6);
+        map.addLayer(layer_ScenicRoutes_6);
+        function pop_UrbanDevelopmentZones_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? Autolinker.link(String(feature.properties['OBJECTID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Area_Ha'] !== null ? Autolinker.link(String(feature.properties['Area_Ha'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COMMENTS'] !== null ? Autolinker.link(String(feature.properties['COMMENTS'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STATUS'] !== null ? Autolinker.link(String(feature.properties['STATUS'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ShapeSTAre'] !== null ? Autolinker.link(String(feature.properties['ShapeSTAre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ShapeSTLen'] !== null ? Autolinker.link(String(feature.properties['ShapeSTLen'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? Autolinker.link(String(feature.properties['Shape_Leng'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Area'] !== null ? Autolinker.link(String(feature.properties['Shape_Area'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_UrbanDevelopmentZones_7_0() {
+            return {
+                pane: 'pane_UrbanDevelopmentZones_7',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(165,171,170,1.0)',
+            }
+        }
+        map.createPane('pane_UrbanDevelopmentZones_7');
+        map.getPane('pane_UrbanDevelopmentZones_7').style.zIndex = 407;
+        map.getPane('pane_UrbanDevelopmentZones_7').style['mix-blend-mode'] = 'normal';
+        var layer_UrbanDevelopmentZones_7 = new L.geoJson(json_UrbanDevelopmentZones_7, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_UrbanDevelopmentZones_7',
+            onEachFeature: pop_UrbanDevelopmentZones_7,
+            style: style_UrbanDevelopmentZones_7_0,
+        });
+        bounds_group.addLayer(layer_UrbanDevelopmentZones_7);
+        map.addLayer(layer_UrbanDevelopmentZones_7);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/UrbanDevelopmentZones_7.png" /> Urban Development Zones': layer_UrbanDevelopmentZones_7,'<img src="legend/ScenicRoutes_6.png" /> Scenic Routes': layer_ScenicRoutes_6,'<img src="legend/IndigenousVegetationHistoric_5.png" /> Indigenous Vegetation Historic': layer_IndigenousVegetationHistoric_5,'<img src="legend/Wetlands_4.png" /> Wetlands': layer_Wetlands_4,'<img src="legend/Watercourse_3.png" /> Watercourse': layer_Watercourse_3,'<img src="legend/Suburbs_2.png" /> Suburbs': layer_Suburbs_2,'<img src="legend/IndigenousVegetationCurrent_1.png" /> Indigenous Vegetation Current': layer_IndigenousVegetationCurrent_1,'<img src="legend/Biodiversitynetwork_0.png" /> Biodiversity network': layer_Biodiversitynetwork_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
